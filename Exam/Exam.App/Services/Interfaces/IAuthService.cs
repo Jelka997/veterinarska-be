@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Exam.App.Services.Dtos;
 
-namespace Exam.App.Services;
+namespace Exam.App.Services.Interfaces;
 
 public interface IAuthService
 {

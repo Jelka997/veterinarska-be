@@ -1,5 +1,5 @@
-﻿using Exam.App.Services;
-using Exam.App.Services.Dtos;
+﻿using Exam.App.Services.Dtos;
+using Exam.App.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

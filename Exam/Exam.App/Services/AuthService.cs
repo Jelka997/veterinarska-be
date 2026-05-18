@@ -5,6 +5,7 @@ using AutoMapper;
 using Exam.App.Domain;
 using Exam.App.Services.Dtos;
 using Exam.App.Services.Exceptions;
+using Exam.App.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
