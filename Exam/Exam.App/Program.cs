@@ -27,9 +27,13 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IVetRepository, VetRepository>();
+builder.Services.AddScoped<IExaminationRepository, ExaminationRepository>();
+builder.Services.AddScoped<IExamReportRepository, ExamReportRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IVetService, VetService>();
+builder.Services.AddScoped<IExaminationService, ExaminationService>();
+builder.Services.AddScoped<IExamReportService, ExamReportService>();
 
 
 

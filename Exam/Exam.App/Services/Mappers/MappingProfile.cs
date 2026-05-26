@@ -18,11 +18,31 @@ namespace Exam.App.Services.Mappers
                 opt => opt.MapFrom(src => src.Vet.User.Name + " " + src.Vet.User.Surname))
                 .ForMember(dest => dest.AnimalSpecie,
                 opt => opt.MapFrom(src => src.AnimalSpecie.Name));
+
             CreateMap<Vet, VetPreviewDto>()
                 .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.User.Name + " " + src.User.Surname))
                 .ForMember(dest => dest.Email,
                 opt => opt.MapFrom(src => src.User.Email));
+
+            CreateMap<Examination, ExaminationDto>().ReverseMap();
+            CreateMap<Examination, ExaminationPreviewForVetDto>()
+                .ForMember(dest => dest.Name,
+                opt => opt.MapFrom(src => src.Pet.Name))
+                .ForMember(dest => dest.AnimalSpecie,
+                opt => opt.MapFrom(src => src.Pet.AnimalSpecie.Name))
+                .ForMember(dest => dest.Age,
+                opt => opt.MapFrom(src => DateTime.Now.Year - src.Pet.DateOfBirth.Year));
+
+            CreateMap<Patient, PatientPreviewForVetDto>()
+                .ForMember(dest => dest.AnimalSpecie,
+                opt => opt.MapFrom(src => src.AnimalSpecie.Name));
+            CreateMap<Vet, VetByIdDto>()
+                 .ForMember(dest => dest.FullName,
+                opt => opt.MapFrom(src => src.User.Name + " " + src.User.Surname))
+                .ForMember(dest => dest.Email,
+                opt => opt.MapFrom(src => src.User.Email));
+            CreateMap<ExamReport, ExamReportDto>().ReverseMap();
         }
     }
 }

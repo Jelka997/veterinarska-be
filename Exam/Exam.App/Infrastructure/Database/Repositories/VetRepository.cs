@@ -17,6 +17,7 @@ namespace Exam.App.Infrastructure.Database.Repositories
         {
             return await _context.Vets
                 .Include(v => v.User)
+                .Include(v => v.Examinations)
                 .Include(v => v.Patients)
                 .ThenInclude(v => v.AnimalSpecie)
                .FirstOrDefaultAsync(v => v.User.UserName == username);
@@ -26,8 +27,10 @@ namespace Exam.App.Infrastructure.Database.Repositories
         {
             return await _context.Vets
                 .Include(v => v.User)
+                .Include(v => v.Examinations)
+                .ThenInclude(e => e.Pet)
                 .Include(v => v.Patients)
-                .ThenInclude(v => v.AnimalSpecie)
+                .ThenInclude(p => p.AnimalSpecie)
                .FirstOrDefaultAsync(v => v.Id == id);
         }
 
@@ -36,6 +39,7 @@ namespace Exam.App.Infrastructure.Database.Repositories
             return await _context.Vets
                 .Include(v => v.User)
                 .Include(v => v.Patients)
+                .Include(v => v.Examinations)
                 .ToListAsync();
         }
     }

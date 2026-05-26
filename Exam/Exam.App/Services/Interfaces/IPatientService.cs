@@ -12,5 +12,6 @@ namespace Exam.App.Services.Interfaces
         Task<PatientPreviewDto> GetOnePatient(int id);
         Task<List<PatientPreviewDto>> GetAllPatients();
         Task<PaginatedList<PatientPreviewDto>> GetAllFilterdPatients(int page, int pageSize ,PatientSearchQuery patientSearchQuery);
+        Task AddVetToPatient(int patientId, int vetId);
     }
 }

@@ -43,6 +43,13 @@ namespace Exam.App.Controllers
             var result = await _patientService.UpdatePatient(dto, id);
             return Ok(result);
         }
+        [Authorize(Roles = "Vet, Assistant")]
+        [HttpPut("{id}/vet/{vetId}")]
+        public async Task<ActionResult> AddVetToPatient(int vetId, int id)
+        {
+            await _patientService.AddVetToPatient(vetId, id);
+            return Ok();
+        }
 
         [Authorize(Roles = "Vet, Assistant")]
         [HttpDelete("{id}")]

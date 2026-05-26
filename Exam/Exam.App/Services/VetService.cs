@@ -2,6 +2,7 @@
 using Exam.App.Domain;
 using Exam.App.Domain.Repositories;
 using Exam.App.Services.Dtos;
+using Exam.App.Services.Exceptions;
 using Exam.App.Services.Interfaces;
 
 namespace Exam.App.Services
@@ -21,6 +22,14 @@ namespace Exam.App.Services
         {
             var existingVets = await _vetRepository.GetAllVets();
             return existingVets.Select(_mapper.Map<VetPreviewDto>).ToList();
+        }
+
+        public async Task<VetByIdDto> GetVetById(int vetId)
+        {
+            var existingVets = await _vetRepository.FindById(vetId);
+            if (existingVets == null) { throw new NotFoundException(vetId); }
+            existingVets.Examinations.GroupBy(e => e.ExaminationDate);//mozda treba na klijentu ovo
+            return _mapper.Map<VetByIdDto>(existingVets);
         }
     }
 }

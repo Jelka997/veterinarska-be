@@ -37,7 +37,6 @@ namespace Exam.App.Infrastructure.Database.Repositories
             //await _context.SaveChangesAsync();
             return patient;
         }
-
         public async Task<bool> DeletePatient(Patient patient)
         {
             _context.Patients.Remove(patient);

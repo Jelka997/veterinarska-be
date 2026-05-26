@@ -13,5 +13,6 @@ namespace Exam.App.Domain
         public Owner Owner { get; set; }
         public int? VetId { get; set; }
         public Vet Vet { get; set; }
+        public List<Examination> Examinations { get; set; } = [];
     }
 }

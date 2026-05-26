@@ -13,6 +13,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Owner> Owners { get; set; }
     public DbSet<Patient> Patients { get; set; }
     public DbSet<Assistant> Assistants { get; set; }
+    public DbSet<Examination> Examinations { get; set; }
+    public DbSet<ExamReport> ExamReports { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,6 +30,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
            .WithOne(v => v.Vet)
            .HasForeignKey<Vet>(o => o.UserId)
            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Vet>()
+           .HasMany(v => v.Examinations)
+           .WithOne(v => v.Vet)
+           .HasForeignKey(o => o.VetId)
+           .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Assistant>()
            .HasOne(a => a.User)
@@ -53,6 +61,19 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             .WithMany()//ne mora u entitetu biti kolekcija da bi mogli da stavimo withmany, jednoj vrsti pripada vise pacijenata
             .HasForeignKey(p => p.AnimalSpecieId)
             .OnDelete(DeleteBehavior.Restrict);//nad seed podacima nikad ne ide cascade brisanje
+
+        modelBuilder.Entity<Patient>()
+            .HasMany(p => p.Examinations)
+            .WithOne(p => p.Pet)
+            .HasForeignKey(p => p.PetId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Examination>()
+            .HasOne(p => p.Report)
+            .WithOne(p => p.Examination)
+            .HasForeignKey<ExamReport>(p => p.ExaminationId)
+            .OnDelete(DeleteBehavior.Restrict);
+
 
         // Seed Roles
         modelBuilder.Entity<IdentityRole>().HasData(

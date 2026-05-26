@@ -5,6 +5,5 @@
         public string Name { get; set; }
         public DateTime DateOfBirth {  get; set; }
         public int AnimalSpecieId { get; set; }
-        public int? VetId { get; set; }
     }
 }

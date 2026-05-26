@@ -63,18 +63,6 @@ namespace Exam.App.Services
                 throw new NotFoundException(id);
             }
 
-            if (dto.VetId.HasValue)
-            {
-                var vet = await _vetRepository.FindById(dto.VetId.Value);
-
-                if (vet == null)
-                {
-                    throw new NotFoundException(dto.VetId.Value);
-                }
-
-                existingPatient.VetId = dto.VetId.Value;
-            }
-
             existingPatient.Name = dto.Name;
             existingPatient.DateOfBirth = dto.DateOfBirth;
             existingPatient.AnimalSpecieId = dto.AnimalSpecieId;
@@ -92,6 +80,26 @@ namespace Exam.App.Services
             return _mapper.Map<UpdatePatientDto>(existingPatient);
         }
 
+        public async Task AddVetToPatient(int vetId, int patientId)
+        {
+            var existingPatient = await _patientRepo.GetPatientById(patientId);
+            if (existingPatient == null) { throw new NotFoundException(patientId); }
+
+            if (existingPatient.VetId != null)
+            {
+                throw new BadRequestException("This patient already has a chosen vet.");
+            }
+            var existingVet = await _vetRepository.FindById(vetId);
+            if (existingVet == null) { throw new NotFoundException(vetId); }
+            existingPatient.VetId = vetId;
+            await _unitOfWork.BeginTransactionAsync();
+            try
+            {
+                await _patientRepo.UpdatePatient(existingPatient);
+                await _unitOfWork.CommitAsync();
+            }
+            catch { await _unitOfWork.RollbackAsync(); throw; }
+        }
         public async Task<bool> DeletePatient(int id)
         {
             var existingPatient = await _patientRepo.GetPatientById(id);

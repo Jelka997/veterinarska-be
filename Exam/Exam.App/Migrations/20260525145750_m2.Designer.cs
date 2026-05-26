@@ -3,6 +3,7 @@ using System;
 using Exam.App.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Exam.App.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260525145750_m2")]
+    partial class m2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,35 +164,6 @@ namespace Exam.App.Migrations
                         .IsUnique();
 
                     b.ToTable("Assistants");
-                });
-
-            modelBuilder.Entity("Exam.App.Domain.ExamReport", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Anamnesis")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ExaminationId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("PatientWeight")
-                        .HasColumnType("double precision");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExaminationId")
-                        .IsUnique();
-
-                    b.ToTable("ExamReports");
                 });
 
             modelBuilder.Entity("Exam.App.Domain.Examination", b =>
@@ -474,17 +448,6 @@ namespace Exam.App.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Exam.App.Domain.ExamReport", b =>
-                {
-                    b.HasOne("Exam.App.Domain.Examination", "Examination")
-                        .WithOne("Report")
-                        .HasForeignKey("Exam.App.Domain.ExamReport", "ExaminationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Examination");
-                });
-
             modelBuilder.Entity("Exam.App.Domain.Examination", b =>
                 {
                     b.HasOne("Exam.App.Domain.Patient", "Pet")
@@ -610,11 +573,6 @@ namespace Exam.App.Migrations
                     b.Navigation("Owner");
 
                     b.Navigation("Vet");
-                });
-
-            modelBuilder.Entity("Exam.App.Domain.Examination", b =>
-                {
-                    b.Navigation("Report");
                 });
 
             modelBuilder.Entity("Exam.App.Domain.Owner", b =>
