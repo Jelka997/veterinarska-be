@@ -78,9 +78,9 @@ namespace Exam.App.Infrastructure.Database.Repositories
                 patients = patients.Where(p => p.Vet.User.Name.ToLower().Contains(patientSearchQuery.VetName.ToLower()));
             }
 
-            if (!string.IsNullOrEmpty(patientSearchQuery.PatName))
+            if (!string.IsNullOrEmpty(patientSearchQuery.PetName))
             {
-                patients = patients.Where(p => p.Name.ToLower().Contains(patientSearchQuery.PatName.ToLower()));
+                patients = patients.Where(p => p.Name.ToLower().Contains(patientSearchQuery.PetName.ToLower()));
             }
 
             if (!string.IsNullOrEmpty(patientSearchQuery.AnimalSpecie))

@@ -26,7 +26,7 @@ namespace Exam.App.Controllers
 
         [Authorize(Roles = "Vet")]
         [HttpPut("{id}")]
-        public async Task<string> CancelExamination(int id, string reason)
+        public async Task<string> CancelExamination(int id,[FromBody] string reason)
         {
             return await _examinationService.CancelExamination(reason, id);
         }

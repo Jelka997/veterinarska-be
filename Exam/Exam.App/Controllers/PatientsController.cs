@@ -44,10 +44,10 @@ namespace Exam.App.Controllers
             return Ok(result);
         }
         [Authorize(Roles = "Vet, Assistant")]
-        [HttpPut("{id}/vet/{vetId}")]
-        public async Task<ActionResult> AddVetToPatient(int vetId, int id)
+        [HttpPut("{id}/vet")]
+        public async Task<ActionResult> AddVetToPatient(int id, [FromBody] int vetId)
         {
-            await _patientService.AddVetToPatient(vetId, id);
+            await _patientService.AddVetToPatient(id, vetId);
             return Ok();
         }
 

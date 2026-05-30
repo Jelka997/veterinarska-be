@@ -23,7 +23,9 @@ namespace Exam.App.Services.Mappers
                 .ForMember(dest => dest.FullName,
                 opt => opt.MapFrom(src => src.User.Name + " " + src.User.Surname))
                 .ForMember(dest => dest.Email,
-                opt => opt.MapFrom(src => src.User.Email));
+                opt => opt.MapFrom(src => src.User.Email))
+            .ForMember(dest => dest.Username,
+                opt => opt.MapFrom(src => src.User.UserName));
 
             CreateMap<Examination, ExaminationDto>().ReverseMap();
             CreateMap<Examination, ExaminationPreviewForVetDto>()

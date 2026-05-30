@@ -17,14 +17,14 @@ namespace Exam.App.Controllers
             _vetService = vetService;
         }
 
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Vet, Assistant")]
         [HttpGet]
         public async Task<List<VetPreviewDto>> GetAllVets()
         {
             return await _vetService.GetAllVets();
         }
 
-        [Authorize(Roles = "Assistant")]
+        [Authorize(Roles = "Vet, Assistant")]
         [HttpGet("{vetId}")]
         public async Task<VetByIdDto> GetVetById(int vetId)
         {

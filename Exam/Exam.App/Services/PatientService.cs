@@ -80,7 +80,7 @@ namespace Exam.App.Services
             return _mapper.Map<UpdatePatientDto>(existingPatient);
         }
 
-        public async Task AddVetToPatient(int vetId, int patientId)
+        public async Task AddVetToPatient(int patientId, int vetId)
         {
             var existingPatient = await _patientRepo.GetPatientById(patientId);
             if (existingPatient == null) { throw new NotFoundException(patientId); }
